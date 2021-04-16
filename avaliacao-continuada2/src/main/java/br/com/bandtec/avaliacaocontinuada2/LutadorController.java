@@ -44,11 +44,16 @@ public class LutadorController {
 
     }
 
-//    @PostMapping("")
-//    public ResponseEntity postLutador(@RequestBody @Valid Lutador novoLutador) {
-//        repository.save(novoLutador);
-//        return ResponseEntity.status(201).build();
-//    }
+    @PostMapping("/lutadores/{id}/concentrar")
+    public ResponseEntity postLutador(@PathVariable int id, @RequestBody @Valid Lutador addConcentracao) {
+        List<Lutador> concentracoes = repository.listaConcentracoes();
+        if (concentracoes.isEmpty()) {
+            System.out.println("Lutador já se concentrou 3 vezes!");
+            return ResponseEntity.status(400).build();
+        } else {
+            return ResponseEntity.status(200).body(repository.listaConcentracoes());
+        }
+    }
 
     @GetMapping("/mortos")
     public ResponseEntity getLutadorMortos() {
